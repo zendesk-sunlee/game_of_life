@@ -36,5 +36,6 @@ class LifeTest < Test::Unit::TestCase
         assert_equal true, is_alive?(BLINKER, 2, 2) # => true # Rule 2
         assert_equal false, is_alive?(BLOCK_WITH_NUB, 2, 2) # => false # Rule 3
         assert_equal true, is_alive?(BLINKER, 1, 2) # => true # Rule 4
+        assert_equal false, is_alive?(BLINKER, -1, -1) # => true # Rule 4
     end
 end

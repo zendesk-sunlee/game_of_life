@@ -20,17 +20,9 @@ def number_of_neighbors(board, x, y)
 end
 
 def is_alive?(board, x, y)
-  # Any live cell with fewer than two live neighbours dies, as if by underpopulation.
-  if was_alive?(board, x,y) && number_of_neighbors(board, x, y) < 2
-    return false
-  elsif was_alive?(board, x,y) && (number_of_neighbors(board, x, y) == 2 || number_of_neighbors(board, x, y) == 3)
-    return true
-  elsif was_alive?(board, x,y) && number_of_neighbors(board, x, y) > 3
-    return false
-  elsif !was_alive?(board, x,y) && number_of_neighbors(board, x, y) == 3
-    return true
-  else
-    raise "Somehow we did not match any rules"
-  end 
+  case number_of_neighbors(board, x, y)
+  when 2 then was_alive?(board, x, y)
+  when 3 then true
+  else false
+  end
 end
-
