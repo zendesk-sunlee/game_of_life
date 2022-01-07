@@ -5,14 +5,14 @@ def was_alive?(board, x,y)
 end
 
 def neighbor_coordinates(x, y)
-  [{x: x-1, y: y-1},
-   {x: x, y: y-1}, 
-    {x: x+1, y: y-1}, 
-    {x: x-1, y: y}, 
-    {x: x+1, y: y}, 
-    {x: x-1, y: y+1}, 
-    {x: x, y: y+1}, 
-    {x: x+1, y: y+1} ]
+  Set[{x: x-1, y: y-1},
+   {x: x, y: y-1},
+    {x: x+1, y: y-1},
+    {x: x-1, y: y},
+    {x: x+1, y: y},
+    {x: x-1, y: y+1},
+    {x: x, y: y+1},
+    {x: x+1, y: y+1}]
 end
 
 def number_of_neighbors(board, x, y)

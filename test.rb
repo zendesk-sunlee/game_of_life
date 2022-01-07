@@ -14,7 +14,7 @@ class LifeTest < Test::Unit::TestCase
     end
 
     def test_neighbor_coordinates
-        coords = [{:x=>1, :y=>1},
+        coords = Set[{:x=>1, :y=>1},
         {:x=>2, :y=>1},
         {:x=>3, :y=>1},
         {:x=>1, :y=>2},
