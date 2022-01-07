@@ -13,7 +13,7 @@ class LifeTest < Test::Unit::TestCase
         assert_equal false, was_alive?(BLOCK, 1,1) # => false
     end
 
-    def test_neighbor_coordinates
+    def test_neighbors
         coords = Set[{:x=>1, :y=>1},
         {:x=>2, :y=>1},
         {:x=>3, :y=>1},
@@ -22,7 +22,7 @@ class LifeTest < Test::Unit::TestCase
         {:x=>1, :y=>3},
         {:x=>2, :y=>3},
         {:x=>3, :y=>3}]
-        assert_equal coords, neighbor_coordinates(2,2)
+        assert_equal coords, neighbors(2,2)
     end
 
     def test_number_of_neighbors
