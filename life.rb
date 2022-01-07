@@ -18,7 +18,7 @@ def neighbors(x, y)
 end
 
 def number_of_neighbors(board, x, y)
-  neighbors(x, y).count{|c| was_alive?(board, c[:x], c[:y]) == true }
+  (x, y).count{|c| was_alive?(board, c[:x], c[:y]) }
 end
 
 def is_alive?(board, x, y)
