@@ -6,6 +6,7 @@ class LifeTest < Test::Unit::TestCase
 
   BLOCK = Set[{x:2, y: 2},{x:3, y: 3},{x:3, y: 2},{x:2, y: 3}]
   BLINKER = Set[{x:2, y: 2},{x:2, y: 3},{x:2, y: 1}]
+  BLINKER_HORIZONTAL = Set[{x: 1, y: 2}, {x: 2, y: 2}, {x: 3, y: 2} ]
   BLOCK_WITH_NUB = Set[{x:2, y: 2},{x:3, y: 3},{x:3, y: 2},{x:2, y: 3}, {x:1, y:1}]
 
   def test_was_alive?
@@ -38,5 +39,10 @@ class LifeTest < Test::Unit::TestCase
     assert_equal false, is_alive?(BLOCK_WITH_NUB, 2, 2) # => false # Rule 3
     assert_equal true, is_alive?(BLINKER, 1, 2) # => true # Rule 4
     assert_equal false, is_alive?(BLINKER, -1, -1) # => true # Rule 4
+  end
+
+  def test_step
+    assert_equal BLOCK, step(BLOCK)
+    assert_equal BLINKER, step(BLINKER_HORIZONTAL)
   end
 end

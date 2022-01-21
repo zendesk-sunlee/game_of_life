@@ -21,3 +21,10 @@ def is_alive?(board, x, y)
   else false
   end
 end
+
+def step(board)
+  board
+  .flat_map {|c| neighbors(c[:x], c[:y]).to_a }
+  .flat_map {|c| is_alive?(board, c[:x], c[:y]) ? [c] : [] }
+  .to_set
+end
