@@ -1,4 +1,5 @@
 require 'set'
+
 Cell = Struct.new(:x, :y)
 
 def was_alive?(board, cell)
@@ -31,3 +32,5 @@ def step(board)
   .flat_map {|c| is_alive?(board, c) ? [c] : [] }
   .to_set
 end
+
+Board -> Board
