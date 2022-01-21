@@ -33,4 +33,3 @@ def step(board)
   .to_set
 end
 
-Board -> Board

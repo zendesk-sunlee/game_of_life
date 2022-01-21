@@ -1,13 +1,17 @@
 <h1>Generations#show</h1>
 <p>Find me in app/views/generations/show.html.erb</p>
 
+<pre>
 <%= @game %>
+<%= @game_id %>
+<%= @id %>
+</pre>
 
 <table>
 <tbody>
-<% for x in 1..10 do %>
+<% for y in 1..10 do %>
   <tr>
-    <% for y in 1..10 do %>
+    <% for x in 1..10 do %>
       <td style="background-color: <%= @game.include?(Cell.new(x, y)) ? 'red' : 'grey' %>; width: 15px; height: 15px;">
       </td>
     <% end %>
@@ -15,3 +19,6 @@
 <% end %>
 </tbody>
 </table>
+
+<%= link_to "Previous Generation", game_generation_url("glider", @id - 1) %> -
+<%= link_to "Next Generation", game_generation_url("glider", @id + 1) %>
