@@ -1,22 +1,25 @@
 require 'set'
+Cell = Struct.new(:x, :y)
 
-def was_alive?(board, x,y)
-  board.include?({x: x, y: y})
+def was_alive?(board, cell)
+  board.include?(cell)
 end
 
-def neighbors(x, y)
-  Set[{x: x-1, y: y-1}, {x: x, y: y-1}, {x: x+1, y: y-1},
-      {x: x-1, y: y  },                 {x: x+1, y: y  },
-      {x: x-1, y: y+1}, {x: x, y: y+1}, {x: x+1, y: y+1}]
+def neighbors(cell)
+  x = cell.x
+  y = cell.y
+  Set[Cell.new(x-1, y-1), Cell.new(x, y-1), Cell.new(x+1, y-1),
+      Cell.new(x-1, y  ),                   Cell.new(x+1, y  ),
+      Cell.new(x-1, y+1), Cell.new(x, y+1), Cell.new(x+1, y+1)]
 end
 
-def number_of_neighbors(board, x, y)
-  neighbors(x, y).count{|c| was_alive?(board, c[:x], c[:y]) }
+def number_of_neighbors(board, cell)
+  neighbors(cell).count{|c| was_alive?(board, c) }
 end
 
-def is_alive?(board, x, y)
-  case number_of_neighbors(board, x, y)
-  when 2 then was_alive?(board, x, y)
+def is_alive?(board, cell)
+  case number_of_neighbors(board, cell)
+  when 2 then was_alive?(board, cell)
   when 3 then true
   else false
   end
@@ -24,7 +27,7 @@ end
 
 def step(board)
   board
-  .flat_map {|c| neighbors(c[:x], c[:y]).to_a }
-  .flat_map {|c| is_alive?(board, c[:x], c[:y]) ? [c] : [] }
+  .flat_map {|c| neighbors(c).to_a }
+  .flat_map {|c| is_alive?(board, c) ? [c] : [] }
   .to_set
 end
