@@ -1,24 +1,6 @@
-<h1>Generations#show</h1>
-<p>Find me in app/views/generations/show.html.erb</p>
+<h1>Game of Life</h1>
 
-<pre>
-<%= @game %>
-<%= @game_id %>
-<%= @id %>
-</pre>
-
-<table>
-<tbody>
-<% for y in 1..10 do %>
-  <tr>
-    <% for x in 1..10 do %>
-      <td style="background-color: <%= @game.include?(Cell.new(x, y)) ? 'red' : 'grey' %>; width: 15px; height: 15px;">
-      </td>
-    <% end %>
-  </tr>
-<% end %>
-</tbody>
-</table>
+<%= render partial: "game", locals: {game: @game} %>
 
 <%= link_to "Previous Generation", game_generation_url("glider", @id - 1) %> -
 <%= link_to "Next Generation", game_generation_url("glider", @id + 1) %>
