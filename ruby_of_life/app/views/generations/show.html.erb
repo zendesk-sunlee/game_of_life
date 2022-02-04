@@ -1,6 +1,13 @@
 <h1>Game of Life</h1>
 
-<%= render partial: "game", locals: {game: @game} %>
+<%= turbo_frame_tag "game" do %>
+  <svg viewBox="0 0 1000 1000"
+       xmlns="http://www.w3.org/2000/svg">
+    <% @game.each do |cell| %>
+      <rect width="15px" height="15px" x="<%= cell.x*15 %>" y="<%= cell.y*15 %>" fill="red"/>
+    <% end %>
+  </svg>
 
-<%= link_to "Previous Generation", game_generation_url("glider", @id - 1) %> -
-<%= link_to "Next Generation", game_generation_url("glider", @id + 1) %>
+  <%= link_to "Previous Generation", game_generation_url("glider", @id - 1) %> -
+  <%= link_to "Next Generation", game_generation_url("glider", @id + 1) %>
+<% end %>
