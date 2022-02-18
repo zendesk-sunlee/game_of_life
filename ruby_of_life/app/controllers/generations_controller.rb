@@ -43,7 +43,8 @@ class GenerationsController < ApplicationController
     @game_id = params[:game_id]
     @id = params[:id].to_i
     @game = GAMES[@game_id]
-    
+    @game = Games.find_by_name(params[:id]) # select coordinates from db
+
     @id.times { @game = step(@game) }
   end
 end

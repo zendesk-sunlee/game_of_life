@@ -1,24 +1,66 @@
 # README
+Try the deployed app.
+https://ruby-of-life.herokuapp.com/games/glider/generations/1
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Database
 
-Things you may want to cover:
+games
+name
+cell []
 
-* Ruby version
+cells
 
-* System dependencies
+## Approaches
+- Games and cells tables, one to many
+  game
+    - id
+    - name
+    - owner_email
 
-* Configuration
 
-* Database creation
+  cell
+    - games_id
+    - x
+    - y
 
-* Database initialization
+  - Prefer to avoid joins + multiple tables
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+- Cells as JSON in game
+  - Games
+  - id
+  - name
+  - cells
+    {game: {"x": x, y: x},..}
+    [{"x": x, y: x}, ...]
+    [[2,2], [3,3],...]
 
-* ...
+  - Values are less accessable as a string
+  - Extra code for parsing
+     - Extra code for validation
+     - Coordination problem
+  - Extra time to parse
+  - JSON in a db feels yucky
+  - You could be storing anything in the JSON
+    - Error prone
+  - Wrong for a relational DB
+
+- One table
+  - Cells
+    - id
+    - Game name
+    - email
+    - x
+    - y
+
+    - Validates uniqueness
+
+    1,blinker,2,2
+    2,blinker,2,2
+
+
+
+Cells.find_by_game_name("glider") =>
+ [Cell.new(game_name: "Glider", x: 3, y: 3),
+ ...]
