@@ -1,5 +1,3 @@
-require "byebug"
-
 class GenerationsController < ApplicationController
   def show
     @game_id = params[:game_id]

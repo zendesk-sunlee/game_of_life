@@ -1,6 +1,3 @@
-
-require "byebug"
-
 class Game < ApplicationRecord
   has_many :cells
 
@@ -24,14 +21,16 @@ class Game < ApplicationRecord
     .reduce(false) {|s, n| s or n}
   end
 
-  def number_of_neighbors(cell)
-    count("number_of_neighbors")
-    cell.neighbors.count{|c| was_alive?(c) }
+  def get_number_of_neighbors_hash
+    self.cells
+    .flat_map {|c| c.neighbors.to_a }
+    .map(&:coords)
+    .reduce({}) {|a, v| if a[v] then a[v] += 1 else a[v] = 1 end; a }
   end
 
-  def is_alive?(cell)
+  def is_alive?(cell, number_of_neighbors_hash )
     count("is_alive?")
-    result = case number_of_neighbors(cell)
+    result = case number_of_neighbors_hash[cell.coords]
     when 2 then was_alive?(cell)
     when 3 then true
     else false
@@ -41,12 +40,13 @@ class Game < ApplicationRecord
 
   # Rather than saving, instead initialize a new game and cells. Return them.
   def step
+    number_of_neighbors_hash = get_number_of_neighbors_hash
     Game.new(
       name: self.name,
       cells: self.cells
       .flat_map {|c| c.neighbors.to_a }
-      .uniq
-      .flat_map {|c| is_alive?(c) ? [c] : [] }
+      .uniq{|c| [c.x, c.y]}
+      .flat_map {|c| is_alive?(c,number_of_neighbors_hash) ? [c] : [] }
       .uniq{|c| [c.x, c.y]}
     )
   end

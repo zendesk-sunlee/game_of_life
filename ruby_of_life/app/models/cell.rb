@@ -9,6 +9,10 @@ class Cell < ApplicationRecord
         Cell.pnew(x-1, y+1), Cell.pnew(x, y+1), Cell.pnew(x+1, y+1)]
   end
 
+  def coords
+    [x, y]
+  end
+
   def self.pnew(x, y)
     Cell.new(x: x, y: y)
   end
